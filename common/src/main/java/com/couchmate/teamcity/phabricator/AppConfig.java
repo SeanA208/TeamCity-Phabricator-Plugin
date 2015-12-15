@@ -1,9 +1,7 @@
 package com.couchmate.teamcity.phabricator;
 
-import jetbrains.buildServer.log.Loggers;
-
-import java.io.File;
 import java.util.Map;
+
 import static com.couchmate.teamcity.phabricator.CommonUtils.isNullOrEmpty;
 
 public final class AppConfig {
@@ -20,26 +18,26 @@ public final class AppConfig {
     private String workingDir;
     private Boolean enabled = false;
 
-    public AppConfig(){
+    public AppConfig() {
         this.logger = new PhabLogger();
     }
 
     //CONFIG VARS
-    private final String PHAB_URL = "tcphab.phabricatorUrl";
-    private final String CONDUIT_TOKEN = "tcphab.conduitToken";
-    private final String ARC_PATH = "tcphab.pathToArc";
-    private final String DIFF_ID = "diffId";
-    private final String ENV_DIFF_ID = "env.diffId";
-    private final String HARBORMASTER_PHID = "harbormasterTargetPHID";
-    private final String ENV_HARBORMASTER_PHID = "env.harbormasterTargetPHID";
+    private static final String PHAB_URL = "tcphab.phabricatorUrl";
+    private static final String CONDUIT_TOKEN = "tcphab.conduitToken";
+    private static final String ARC_PATH = "tcphab.pathToArc";
+    private static final String DIFF_ID = "diffId";
+    private static final String ENV_DIFF_ID = "env.diffId";
+    private static final String HARBORMASTER_PHID = "harbormasterTargetPHID";
+    private static final String ENV_HARBORMASTER_PHID = "env.harbormasterTargetPHID";
     //TODO used for commenting on diffs eventually
-    private final String REVISION_ID = "revisionId";
-    private final String ENV_REVISION_ID = "env.revisionId";
+    private static final String REVISION_ID = "revisionId";
+    private static final String ENV_REVISION_ID = "env.revisionId";
 
-    public void parse(){
-        for(String value : this.params.keySet()){
-            if(!isNullOrEmpty(value)){
-                switch(value){
+    public void parse() {
+        for (String value : this.params.keySet()) {
+            if (!isNullOrEmpty(value)) {
+                switch (value) {
                     case PHAB_URL:
                         logger.info(String.format("Found phabricatorUrl: %s", params.get(PHAB_URL)));
                         this.phabricatorUrl = params.get(PHAB_URL);
@@ -70,21 +68,21 @@ public final class AppConfig {
                 }
             }
         }
-        if(
+        if (
                 !isNullOrEmpty(conduitToken) &&
-                !isNullOrEmpty(arcPath) &&
-                !isNullOrEmpty(phabricatorUrl) &&
-                !isNullOrEmpty(diffId) &&
-                !isNullOrEmpty(harbormasterTargetPHID)){
+                        !isNullOrEmpty(arcPath) &&
+                        !isNullOrEmpty(phabricatorUrl) &&
+                        !isNullOrEmpty(diffId) &&
+                        !isNullOrEmpty(harbormasterTargetPHID)) {
             this.enabled = true;
         }
     }
 
-    public void setParams(Map<String, String> params){
+    public void setParams(Map<String, String> params) {
         this.params = params;
     }
 
-    public void setLogger(PhabLogger logger){
+    public void setLogger(PhabLogger logger) {
         this.logger = logger;
     }
 
@@ -112,7 +110,9 @@ public final class AppConfig {
         return this.diffId;
     }
 
-    public String getArcPath() { return this.arcPath; }
+    public String getArcPath() {
+        return this.arcPath;
+    }
 
     public Boolean isEnabled() {
         return this.enabled;

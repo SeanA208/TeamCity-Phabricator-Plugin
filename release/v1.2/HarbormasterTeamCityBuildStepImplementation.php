@@ -54,8 +54,8 @@ final class HarbormasterTeamCityBuildStepImplementation
     $xmlBuilder = new TeamCityXmlBuildBuilder();
     $payload = $xmlBuilder
         ->addBuildId($settings['buildId'])
-        ->addBranchName(implode(array("D", $variables['buildable.diff'])))
-        ->addDiffId(implode(array("D", $variables['buildable.diff'])))
+        ->addBranchName(implode(array("D", $variables['buildable.revision'])))
+        ->addDiffId($variables['buildable.diff'])
         ->addHarbormasterPHID($variables['target.phid'])
         ->addRevisionId($variables['buildable.revision'])
         ->build();

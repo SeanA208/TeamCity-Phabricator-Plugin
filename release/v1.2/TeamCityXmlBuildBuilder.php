@@ -42,9 +42,8 @@ final class TeamCityXmlBuildBuilder {
     }
 
     function addDiffId($diffId){
-        $this->addProperty('env.diffId', $diffId);
+        $this->addProperty('build_tag', 'refs/tags/phabricator/diff/' . $diffId);
         return $this;
-
     }
 
     function build(){

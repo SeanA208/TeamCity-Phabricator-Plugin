@@ -8,15 +8,15 @@ public final class GitClient {
     private final String GIT_COMMAND = "git";
     private final String workingDir;
 
-    private GitClient(){
+    private GitClient() {
         this.workingDir = null;
     }
 
-    public GitClient(final String workingDir){
+    public GitClient(final String workingDir) {
         this.workingDir = workingDir;
     }
 
-    public CommandBuilder.Command reset(){
+    public CommandBuilder.Command reset() {
         return new CommandBuilder()
                 .setWorkingDir(this.workingDir)
                 .setCommand(this.GIT_COMMAND)
@@ -25,7 +25,7 @@ public final class GitClient {
                 .build();
     }
 
-    public CommandBuilder.Command clean(){
+    public CommandBuilder.Command clean() {
         return new CommandBuilder()
                 .setWorkingDir(this.workingDir)
                 .setCommand(this.GIT_COMMAND)

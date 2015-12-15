@@ -1,9 +1,10 @@
 package com.couchmate.teamcity.phabricator;
 
-import com.couchmate.teamcity.phabricator.tasks.ApplyPatch;
 import com.couchmate.teamcity.phabricator.tasks.HarbormasterBuildStatus;
+
 import jetbrains.buildServer.agent.*;
 import jetbrains.buildServer.util.EventDispatcher;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
@@ -21,7 +22,7 @@ public class Agent extends AgentLifeCycleAdapter {
             @NotNull final EventDispatcher<AgentLifeCycleListener> eventDispatcher,
             @NotNull final PhabLogger phabLogger,
             @NotNull final AppConfig appConfig
-    ){
+    ) {
         eventDispatcher.addListener(this);
         this.logger = phabLogger;
         this.appConfig = appConfig;
@@ -45,23 +46,18 @@ public class Agent extends AgentLifeCycleAdapter {
             Map<String, String> configs = new HashMap<>();
             configs.putAll(runner.getBuildParameters().getEnvironmentVariables());
             configs.putAll(runner.getConfigParameters());
-            if(!this.buildFeatures.isEmpty()) configs.putAll(this.buildFeatures.iterator().next().getParameters());
-            else logger.info("No build features found");
-
+            if (!this.buildFeatures.isEmpty()) {
+                configs.putAll(this.buildFeatures.iterator().next().getParameters());
+            } else {
+                logger.info("No build features found");
+            }
             this.appConfig.setParams(configs);
             this.appConfig.setLogger(this.logger);
             this.appConfig.parse();
 
-            if (this.appConfig.isEnabled()) {
-                this.logger.info("Plugin is enabled, starting patch process");
-                this.appConfig.setWorkingDir(runner.getWorkingDirectory().getPath());
-
-                new ApplyPatch(runner, this.appConfig, this.logger).run();
-
-            } else {
-                this.logger.info("Plugin is disabled.");
-            }
-        } catch (Exception e) { this.logger.warn("BeforeRunnerStartError", e); }
+        } catch (Exception e) {
+            this.logger.warn("BeforeRunnerStartError", e);
+        }
 
     }
 
