@@ -2,6 +2,7 @@ package com.couchmate.teamcity.phabricator;
 
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.log.Loggers;
+
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -20,19 +21,19 @@ public final class PhabLogger {
     @Nullable
     BuildProgressLogger buildProgressLogger;
 
-    public void setBuildLogger(@Nullable BuildProgressLogger buildLogger){
+    public void setBuildLogger(@Nullable BuildProgressLogger buildLogger) {
         this.buildProgressLogger = buildLogger;
     }
 
-    public void info(String message){
-        Loggers.SERVER.info(String.format("Phabricator Plugin: %s", message));
+    public void info(String message) {
+        Loggers.ACTIVITIES.info(String.format("Phabricator Plugin: %s", message));
     }
 
-    public void warn(String message, Exception e){
+    public void warn(String message, Exception e) {
         Loggers.SERVER.warn(message, e);
     }
 
-    public void serverInfo(String message){
+    public void serverInfo(String message) {
         Loggers.SERVER.info(message);
     }
 
