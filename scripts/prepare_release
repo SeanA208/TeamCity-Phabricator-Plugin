@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+mvn package && cp target/teamcity-phabricator-plugin.zip release/plugin/
