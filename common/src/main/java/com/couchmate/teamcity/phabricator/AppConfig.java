@@ -68,12 +68,7 @@ public final class AppConfig {
                 }
             }
         }
-        if (
-                !isNullOrEmpty(conduitToken) &&
-                        !isNullOrEmpty(arcPath) &&
-                        !isNullOrEmpty(phabricatorUrl) &&
-                        !isNullOrEmpty(diffId) &&
-                        !isNullOrEmpty(harbormasterTargetPHID)) {
+        if (!isNullOrEmpty(conduitToken) && !isNullOrEmpty(phabricatorUrl) && !isNullOrEmpty(harbormasterTargetPHID)) {
             this.enabled = true;
         }
     }

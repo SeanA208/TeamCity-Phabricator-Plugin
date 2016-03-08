@@ -66,7 +66,8 @@ public final class HttpRequestBuilder {
     }
 
     public HttpRequestBuilder setScheme(String scheme) {
-        if (CommonUtils.isNullOrEmpty(scheme)) throw new IllegalArgumentException("Must provide a valid scheme");
+        if (CommonUtils.isNullOrEmpty(scheme))
+            throw new IllegalArgumentException("Must provide a valid scheme");
         else if (!scheme.equals("http") && !scheme.equals("https"))
             throw new IllegalArgumentException(String.format("Scheme %s is not supported", scheme));
         else this.scheme = scheme;
@@ -74,7 +75,8 @@ public final class HttpRequestBuilder {
     }
 
     public HttpRequestBuilder setHost(String host) {
-        if (CommonUtils.isNullOrEmpty(host)) throw new IllegalArgumentException("Must provide a valid host");
+        if (CommonUtils.isNullOrEmpty(host))
+            throw new IllegalArgumentException("Must provide a valid host");
         else this.host = host;
         return this;
     }
@@ -85,13 +87,15 @@ public final class HttpRequestBuilder {
     }
 
     public HttpRequestBuilder setPath(String path) {
-        if (CommonUtils.isNullOrEmpty(path)) throw new IllegalArgumentException("Must provide a valid path");
+        if (CommonUtils.isNullOrEmpty(path))
+            throw new IllegalArgumentException("Must provide a valid path");
         else this.path = path;
         return this;
     }
 
     public HttpRequestBuilder setParam(String key, String value) {
-        if (CommonUtils.isNullOrEmpty(key)) throw new IllegalArgumentException("Must provide a valid param");
+        if (CommonUtils.isNullOrEmpty(key))
+            throw new IllegalArgumentException("Must provide a valid param");
         else this.params.add(new StringKeyValue(key, value));
         return this;
     }
@@ -104,7 +108,8 @@ public final class HttpRequestBuilder {
     }
 
     public HttpRequestBuilder setBody(String body) throws UnsupportedEncodingException {
-        if (CommonUtils.isNullOrEmpty(body)) throw new IllegalArgumentException("Must provide a valid body");
+        if (CommonUtils.isNullOrEmpty(body))
+            throw new IllegalArgumentException("Must provide a valid body");
         else {
             this.body = new StringEntity(body);
         }
@@ -148,6 +153,17 @@ public final class HttpRequestBuilder {
         return httpRequest;
     }
 
+    @Override
+    public String toString() {
+        String basics = "HttpRequestBuilder -- " + "scheme: " + scheme + " host: " + host + " port: " + port;
+        String formParamsString = "formParams -- ";
+        for (BasicNameValuePair pair : formParams) {
+            formParamsString += " " + pair.toString();
+        }
+
+        return basics + " " + formParamsString;
+    }
+
     private String paramBuilder() {
         StringBuilder stringBuilder = new StringBuilder();
         if (this.params.isEmpty()) return null;
@@ -156,7 +172,8 @@ public final class HttpRequestBuilder {
                 KeyValue param = this.params.get(i);
                 if (i == this.params.size() - 1)
                     stringBuilder.append(String.format("%s=%s", param.getKey(), param.getValue()));
-                else stringBuilder.append(String.format("%s=%s&", param.getKey(), param.getValue()));
+                else
+                    stringBuilder.append(String.format("%s=%s&", param.getKey(), param.getValue()));
             }
             return stringBuilder.toString();
         }

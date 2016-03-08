@@ -6,6 +6,7 @@ import jetbrains.buildServer.serverSide.SRunningBuild;
 import jetbrains.buildServer.serverSide.STest;
 import jetbrains.buildServer.serverSide.STestRun;
 import jetbrains.buildServer.tests.TestInfo;
+
 import org.apache.commons.io.IOUtils;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
@@ -35,6 +36,7 @@ public class BuildTracker implements Runnable {
     }
 
     public void run() {
+        /*
         while (!build.isFinished()) {
             if (!appConfig.isEnabled()) {
                 try {
@@ -67,6 +69,7 @@ public class BuildTracker implements Runnable {
             }
         }
         Loggers.SERVER.info(this.build.getBuildNumber() + " finished");
+        */
     }
 
     private void sendTestReport(String testName, STestRun test) {
@@ -74,12 +77,12 @@ public class BuildTracker implements Runnable {
                 .post()
                 .setUrl(this.appConfig.getPhabricatorUrl())
                 .setPath("/api/harbormaster.sendmessage")
-                        //.setBody(payload.toString())
+                //.setBody(payload.toString())
                 .addFormParam(new StringKeyValue("api.token", this.appConfig.getConduitToken()))
                 .addFormParam(new StringKeyValue("buildTargetPHID", this.appConfig.getHarbormasterTargetPHID()))
                 .addFormParam(new StringKeyValue("type", "work"))
                 .addFormParam(new StringKeyValue("unit[0][name]", test.getTest().getName().getTestMethodName()))
-                        //.addFormParam(new StringKeyValue("unit[0][duration]", String.valueOf(test.getDuration())))
+                //.addFormParam(new StringKeyValue("unit[0][duration]", String.valueOf(test.getDuration())))
                 .addFormParam(new StringKeyValue("unit[0][namespace]", test.getTest().getName().getClassName()));
 
         if (test.getStatus().isSuccessful()) {

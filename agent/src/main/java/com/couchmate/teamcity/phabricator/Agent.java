@@ -1,6 +1,5 @@
 package com.couchmate.teamcity.phabricator;
 
-import com.couchmate.teamcity.phabricator.tasks.HarbormasterBuildStatus;
 
 import jetbrains.buildServer.agent.*;
 import jetbrains.buildServer.util.EventDispatcher;
@@ -59,12 +58,6 @@ public class Agent extends AgentLifeCycleAdapter {
             this.logger.warn("BeforeRunnerStartError", e);
         }
 
-    }
-
-    @Override
-    public void runnerFinished(@NotNull BuildRunnerContext runner, @NotNull BuildFinishedStatus status) {
-        //super.runnerFinished(runner, status);
-        new HarbormasterBuildStatus(this.appConfig, status).run();
     }
 
 }
